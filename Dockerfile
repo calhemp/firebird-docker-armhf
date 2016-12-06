@@ -1,21 +1,22 @@
+#latest debian:jessie
 FROM armhf/debian
 MAINTAINER Pere Canadell <calhemp@gmail.com>
 
 ENV PREFIX=/usr/local/firebird
 ENV DEBIAN_FRONTEND noninteractive
-#ENV SYSDBA_PASSWORD mypassword
 
-#timezone for my propose
+#timezone for my propose (commented)
 #RUN echo "Europe/Madrid"  | tee /etc/timezone \
 #    && dpkg-reconfigure --frontend noninteractive tzdata
 
-#make  dependencies
+#install build and dependencies for make this base debian arm need libicu-dev libicu52 libatomic-ops-dev 
 RUN apt-get update \
     && apt-get install -qy libncurses5-dev bzip2 curl gcc g++ make libicu-dev libicu52 libatomic-ops-dev 
 
 #build firebird
 RUN mkdir -p /home/firebird && \
     cd /home/firebird && \
+    #last release in 05/12/2016
     curl -o firebird-source.tar.bz2 -L \
         "http://downloads.sourceforge.net/project/firebird/firebird/2.5.6-Release/Firebird-2.5.6.27020-0.tar.bz2" && \
     tar --strip=1 -xf firebird-source.tar.bz2 && \
@@ -33,7 +34,8 @@ RUN mkdir -p /home/firebird && \
     cd / && \
     rm -rf /home/firebird && \
     rm -rf ${PREFIX}/*/.debug && \
-    apt-get purge -qy --auto-remove libncurses5-dev bzip2 curl gcc g++ make libicu-dev libatomic-ops-dev && \
+    #no remove libicu-dev, libcu52 because needs for password change with gsec software in script
+    apt-get purge -qy --auto-remove libncurses5-dev bzip2 curl gcc g++ make libatomic-ops-dev && \
     apt-get clean -q && \
     rm -rf /var/lib/apt/lists/* 
 
