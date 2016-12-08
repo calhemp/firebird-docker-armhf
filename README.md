@@ -1,9 +1,12 @@
 # firebird-docker-armhf
 Firebird server image. Dockerfile for armv7 devices like Linux-sunxi boards running linux Armbian distro with hypriot compiled docker for arm more info: Linux-sunxi: www.linux-sunxi.org Armbian: www.armbian.com hypriot: www.hypriot.com
 
-this images is based of https://github.com/jacobalberty/firebird-docker eforts but adapted for armhf. I think that is valid for rpi2/2+ also.
+this images is based of https://github.com/jacobalberty/firebird-docker eforts and pull update of firebird source 2.5.6 from mariuz
+https://github.com/jacobalberty/firebird-docker/pull/8/commits/38c9c3f72de1c97c252c38a30104a1cc2243c99c
+image adapted to run in armhf device. 
 
-Image derived from a armhf/debian jessie.
+I think that is valid for rpi2/2+ also.
+Dockerfile base from armhf/debian:latest that is jessie in 2016.
 
 # docker Firebird
 
@@ -70,14 +73,14 @@ see: http://www.firebirdfaq.org/faq53/ for more information on event port mappin
 ```
 git clone https://github.com/calhemp/firebird-docker-armhf.git
 cd firebird-docker-armhf
-*build:
-example sudo docker build -t mybuild/firebird-server-arm .
+*build example:
+sudo docker build -t mybuild/firebird-server-arm .
 ```
-I run this container with a shared folder that have my database.fdb
+I run this container with a shared folder that have my database.fdb or create a database with /usr/local/firbird/isql in /database volume folder inside container.
 ```
-docker run -d -p 3050:3050 -v /my/folder/database/path:/databases nameofimage
+docker run -d -p 3050:3050 -v /my/folder/database/path:/databases mybuild/firebird-server-arm
 ```
 or run container with available host port run with -P prefix and docker will do the rest, se what port is used with docker ps or docker inspect.
 ```
-docker run -d -P -v /my/folder/database/path:/databases nameofimage
+docker run -d -P -v /my/folder/database/path:/databases mybuild/firebird-server-arm
 ```
