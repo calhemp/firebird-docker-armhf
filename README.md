@@ -66,7 +66,13 @@ Database lock directory
 Please note for events to work properly you must either configure RemoteAuxPort and forward it with -p using a direct mapping where both sides internal and external use the same port or use --net=host to allow the random port mapping to work.
 see: http://www.firebirdfaq.org/faq53/ for more information on event port mapping.
 
-# run
+# build and run
+```
+git clone https://github.com/calhemp/firebird-docker-armhf.git
+cd firebird-docker-armhf
+*build:
+example sudo docker build -t mybuild/firebird-server-arm .
+```
 I run this container with a shared folder that have my database.fdb
 ```
 docker run -d -p 3050:3050 -v /my/folder/database/path:/databases nameofimage
