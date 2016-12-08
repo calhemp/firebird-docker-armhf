@@ -36,7 +36,7 @@ RUN apt-get update && \
     cd / && \
     rm -rf /home/firebird && \
     rm -rf ${PREFIX}/*/.debug && \
-    #no remove libcu52 / libicu-dev because needs for password change with gsec software in script apt-get purge -qy --auto-remove libicu-dev
+    #no remove libcu52 because needs for password change with gsec software in script apt-get purge -qy --auto-remove libicu-dev
     apt-get purge -qy --auto-remove libncurses5-dev bzip2 curl gcc g++ make libicu-dev libatomic-ops-dev && \
     apt-get clean -q && \
     rm -rf /var/lib/apt/lists/* && /home/setPass.sh && rm -f /home/setPass.sh
