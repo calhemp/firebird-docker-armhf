@@ -9,10 +9,6 @@ ENV DEBIAN_FRONTEND noninteractive
 #RUN echo "Europe/Madrid"  | tee /etc/timezone \
 #    && dpkg-reconfigure --frontend noninteractive tzdata
 
-#timezone for my propose (commented)
-#RUN echo "Europe/Madrid"  | tee /etc/timezone \
-#    && dpkg-reconfigure --frontend noninteractive tzdata
-
 #install build and dependencies for make this base debian arm need libicu-dev libicu52 libatomic-ops-dev 
 RUN apt-get update && \
     apt-get install -qy libncurses5-dev bzip2 curl gcc g++ make libicu-dev libicu52 libatomic-ops-dev && \
